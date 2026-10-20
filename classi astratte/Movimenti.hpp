@@ -15,6 +15,7 @@ class Movimenti{
         static void checkA (const Scacchiera& s, Posizione p, std::vector<Posizione>& mosse);
         static void checkB (const Scacchiera& s, Posizione p, std::vector<Posizione>& mosse);
         static void pedone (const Scacchiera& s, Posizione p, std::vector<Posizione>& mosse);
+        static void cavallo (const Scacchiera& s, Posizione p, std::vector<Posizione>& mosse);
 };
 
 #endif

@@ -286,3 +286,57 @@
 				mosse.push_back(p1);
 			}
 	}
+
+void Movimenti::cavallo (const Scacchiera& s, Posizione p, std::vector<Posizione>& mosse){
+	int r=p.riga;
+	int c=p.colonna;
+	const Pezzo* pezzo=s.getPezzo(r, c);
+	Posizione p1={r+1,c+2};
+	Pezzo* pezzoc=s.getPezzo(r+1, c+2);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+	p1={r+1,c-2};
+	pezzoc=s.getPezzo(r+1, c-2);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+	p1={r-1,c+2};
+	pezzoc=s.getPezzo(r-1, c+2);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+	p1={r-1,c-2};
+	pezzoc=s.getPezzo(r-1, c-2);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+	p1={r+2,c-1};
+	pezzoc=s.getPezzo(r+2, c-1);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+	p1={r+2,c+1};
+	pezzoc=s.getPezzo(r+2, c+1);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+	p1={r-2,c-1};
+	pezzoc=s.getPezzo(r-2, c-1);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+	p1={r-2,c+1};
+	pezzoc=s.getPezzo(r-2, c+1);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+}
