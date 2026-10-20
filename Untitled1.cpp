@@ -376,7 +376,47 @@ class Movimenti{
    		
    	}
 
-
+	static void pedone (const Scacchiera& s, Posizione p, std::vector<Posizione>& mosse)  {
+		int r=p.riga;
+		int c=p.colonna;
+		int i;
+			Pezzo* pezzo=s.getPezzo(r, c);
+			if(pezzo->getColore()==Pezzo::Colore::nero){
+				i=1;
+			}
+			if(pezzo->getColore()==Pezzo::Colore::bianco){
+				i=-1;
+			}
+			Pezzo* pezzow=s.getPezzo(r+i, c);
+			Pezzo* pezzoww=s.getPezzo(r+2*i, c);
+			Pezzo* pezzoa=s.getPezzo(r+i, c-i);
+			Pezzo* pezzod=s.getPezzo(r+i, c+i);
+			if(pezzow==nullptr)
+			{
+				Posizione p1={r+i,c};
+				mosse.push_back(p1);
+			}
+			if(pezzoww==nullptr && i==1  && r==1)
+			{
+				Posizione p1={r+2*i,c};
+				mosse.push_back(p1);
+			}
+			if(pezzoww==nullptr && i==-1  && r==6)
+			{
+				Posizione p1={r+2*i,c};
+				mosse.push_back(p1);
+			}
+			if(pezzoa!=nullptr && pezzoa->getColore()!=pezzo->getColore())
+			{
+				Posizione p1={r+i,c-i};
+				mosse.push_back(p1);
+			}
+			if(pezzod!=nullptr && pezzod->getColore()!=pezzo->getColore())
+			{
+				Posizione p1={r+i,c+i};
+				mosse.push_back(p1);
+			}
+	}
 };
 
 										// sottoclasse Re
@@ -398,7 +438,14 @@ class Regina : public Pezzo {
     {
     	
 	}
-	std::vector<Posizione> mossePossibili(const Scacchiera& scacchiera, Posizione posizione) const override {}
+	std::vector<Posizione> mossePossibili(const Scacchiera& scacchiera, Posizione posizione) const override {
+		std::vector<Posizione> mossePossibiliQ;
+		Movimenti::checkRiga (scacchiera, posizione, mossePossibiliQ);
+		Movimenti::checkColonna (scacchiera, posizione, mossePossibiliQ);
+		Movimenti::checkA (scacchiera, posizione, mossePossibiliQ);
+		Movimenti::checkB (scacchiera, posizione, mossePossibiliQ);
+		return mossePossibiliQ;
+	}
 };
 
 
@@ -455,7 +502,10 @@ class Pedone : public Pezzo {
     	: Pezzo(colore)
     {	
 	}
-	std::vector<Posizione> mossePossibili(const Scacchiera& scacchiera, Posizione posizione) const override {}
+	std::vector<Posizione> mossePossibili(const Scacchiera& scacchiera, Posizione posizione) const override {
+		std::vector<Posizione> mossePossibiliP;
+		Movimenti::pedone(scacchiera, posizione, mossePossibiliP);
+	}
 };
 
 
@@ -594,5 +644,3 @@ int main()
 	
 	return 0;	
 }
-
-
