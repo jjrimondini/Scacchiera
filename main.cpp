@@ -2,7 +2,7 @@
 #include <array>
 #include <vector>
 #include <memory>
-#include <Posizione.hpp>
+#include "struct/Posizione.hpp"
 using namespace std;
 
 

@@ -22,6 +22,8 @@ class Pezzo {
             // Colore getColore();
 	Colore getColore() const;
 
+
+			//  credo sia un costruttore
 	virtual ~Pezzo();
 	
 			//  funzione virtuale pura 

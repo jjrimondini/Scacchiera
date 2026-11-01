@@ -20,6 +20,8 @@ class Scacchiera {
 	
 			//  funzione per reimpostare una casella a nullptr
 	bool rimuoviPezzo(int riga, int colonna);
+
+	
 };
 
 #endif

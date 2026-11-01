@@ -7,6 +7,10 @@
    		int c=p.colonna;
    		for(int ci=c+1;ci<8;ci++)
    		{
+			if(Controlli::checkC(r)==false || Controlli::checkC(ci)==false)
+			{
+				break;
+			}
    			if (s.getPezzo(r, ci)==nullptr)
    			{
    				Posizione p1={r, ci};
@@ -30,6 +34,10 @@
 		}
 		for(int ci=c-1;ci>=0;ci--)
    		{
+			if(Controlli::checkC(r)==false || Controlli::checkC(ci)==false)
+			{
+				break;
+			}
    			if (s.getPezzo(r, ci)==nullptr)
    			{
    				Posizione p1={r, ci};
@@ -58,6 +66,10 @@
    		int c=p.colonna;
    		for(int ri=r+1;ri<8;ri++)
    		{
+			if(Controlli::checkC(ri)==false || Controlli::checkC(c)==false)
+			{
+				break;
+			}
    			if (s.getPezzo(ri, c)==nullptr)
    			{
    				Posizione p1={ri, c};
@@ -81,6 +93,10 @@
 		}
 		for(int ri=r-1;ri>=0;ri--)
    		{
+			if(Controlli::checkC(ri)==false || Controlli::checkC(c)==false)
+			{
+				break;
+			}
    			if (s.getPezzo(ri, c)==nullptr)
    			{
    				Posizione p1={ri, c};
@@ -112,6 +128,10 @@
    		{
 			int ri=r+i;
 			int ci=c+i;
+			if(Controlli::checkC(ri)==false || Controlli::checkC(ci)==false)
+			{
+				break;
+			}
 			if(Controlli::checkC(ri)==true && Controlli::checkC(ci)==true)
 			{
 				if (s.getPezzo(ri, ci)==nullptr)
@@ -144,6 +164,10 @@
    		{
 			int ri=r-i;
 			int ci=c-i;
+			if(Controlli::checkC(ri)==false || Controlli::checkC(ci)==false)
+			{
+				break;
+			}
 			if(Controlli::checkC(ri)==true && Controlli::checkC(ci)==true)
 			{
 				if (s.getPezzo(ri, ci)==nullptr)
@@ -182,6 +206,10 @@
    		{
 			int ri=r+i;
 			int ci=c-i;
+			if(Controlli::checkC(ri)==false || Controlli::checkC(ci)==false)
+			{
+				break;
+			}
 			if(Controlli::checkC(ri)==true && Controlli::checkC(ci)==true)
 			{
 				if (s.getPezzo(ri, ci)==nullptr)
@@ -214,6 +242,10 @@
    		{
 			int ri=r-i;
 			int ci=c+i;
+			if(Controlli::checkC(ri)==false || Controlli::checkC(ci)==false)
+			{
+				break;
+			}
 			if(Controlli::checkC(ri)==true && Controlli::checkC(ci)==true)
 			{
 				if (s.getPezzo(ri, ci)==nullptr)
@@ -258,9 +290,9 @@
 			}
 			Pezzo* pezzow=s.getPezzo(r+i, c);
 			Pezzo* pezzoww=s.getPezzo(r+2*i, c);
-			Pezzo* pezzoa=s.getPezzo(r+i, c-i);
-			Pezzo* pezzod=s.getPezzo(r+i, c+i);
-			if(pezzow==nullptr)
+			Pezzo* pezzoa=s.getPezzo(r+i, c-1);
+			Pezzo* pezzod=s.getPezzo(r+i, c+1);
+			if(pezzow==nullptr && Controlli::checkC(r+i)==true && Controlli::checkC(c)==true)
 			{
 				Posizione p1={r+i,c};
 				mosse.push_back(p1);
@@ -275,14 +307,14 @@
 				Posizione p1={r+2*i,c};
 				mosse.push_back(p1);
 			}
-			if(pezzoa!=nullptr && pezzoa->getColore()!=pezzo->getColore())
+			if(Controlli::checkC(r+i)==true && Controlli::checkC(c-1)==true && pezzoa!=nullptr && pezzoa->getColore()!=pezzo->getColore())
 			{
-				Posizione p1={r+i,c-i};
+				Posizione p1={r+i,c-1};
 				mosse.push_back(p1);
 			}
-			if(pezzod!=nullptr && pezzod->getColore()!=pezzo->getColore())
+			if(Controlli::checkC(r+i)==true && Controlli::checkC(c+1)==true && pezzod!=nullptr && pezzoa->getColore()!=pezzo->getColore())
 			{
-				Posizione p1={r+i,c+i};
+				Posizione p1={r+i,c+1};
 				mosse.push_back(p1);
 			}
 	}
@@ -335,6 +367,60 @@ void Movimenti::cavallo (const Scacchiera& s, Posizione p, std::vector<Posizione
 	}
 	p1={r-2,c+1};
 	pezzoc=s.getPezzo(r-2, c+1);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+}
+
+void Movimenti::King (const Scacchiera& s, Posizione p, std::vector<Posizione>& mosse){
+	int r=p.riga;
+	int c=p.colonna;
+	const Pezzo* pezzo=s.getPezzo(r, c);
+	Posizione p1={r,c+1};
+	Pezzo* pezzoc=s.getPezzo(r, c+1);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+	p1={r-1,c+1};
+	pezzoc=s.getPezzo(r-1, c+1);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+	p1={r-1,c};
+	pezzoc=s.getPezzo(r-1, c);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+	p1={r-1,c-1};
+	pezzoc=s.getPezzo(r-1, c-1);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+	p1={r,c-1};
+	pezzoc=s.getPezzo(r, c-1);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+	p1={r+1,c-1};
+	pezzoc=s.getPezzo(r+1, c-1);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+	p1={r+1,c};
+	pezzoc=s.getPezzo(r+1, c);
+	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
+	{
+		mosse.push_back(p1);
+	}
+	p1={r+1,c+1};
+	pezzoc=s.getPezzo(r+1, c+1);
 	if(Controlli::checkPosizione(p1)==true && pezzoc==nullptr || pezzo->getColore()!=pezzoc->getColore())
 	{
 		mosse.push_back(p1);

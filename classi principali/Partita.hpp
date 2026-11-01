@@ -24,7 +24,6 @@ class Partita {
 	
 				//  funzione di movimento dei pezzi
 	bool muoviPezzo (int ra, int ca, int rb, int cb);
-		
 			
 	
 };
